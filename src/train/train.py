@@ -8,7 +8,11 @@ def train(model, train_dataloader, optimizer, criterion):
     train_running_correct = 0
     for inputs, labels in train_dataloader:
         optimizer.zero_grad()
-        outputs = model(inputs)
+        if model._get_name() == 'Inception3':
+            outputs, _ = model(inputs)
+        else:
+            outputs = model(inputs)
+        # print(outputs, labels)
         loss = criterion(outputs, labels)
 
         train_running_loss += loss.item()
