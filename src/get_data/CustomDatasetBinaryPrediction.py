@@ -19,15 +19,19 @@ class CustomDatasetBinaryPrediction(Dataset):
         image = image.convert('RGB')
 
         label = self.data.iloc[idx].iloc[0]
-        # label = torch.tensor(label, dtype=torch.float32)
-        # label = label.float()
 
-        label_tensor = torch.zeros(2)
-        label_tensor[float(label)] = 1
+        if label == 0:
+            label = np.array([1., 0.])
+        elif label == 1:
+            label = np.array([0., 1.])
+        else:
+            raise ValueError("El valor debe ser 0 o 1.")
+
+        label = torch.tensor(label, dtype=torch.float32)
 
         if self.transform:
             image = self.transform(image)
 
-        image, label_tensor = image.to(self.device), label_tensor.to(self.device)
+        image, label = image.to(self.device), label.to(self.device)
 
         return image, label
