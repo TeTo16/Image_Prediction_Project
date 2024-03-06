@@ -12,12 +12,12 @@ def train_binary(model, train_dataloader, optimizer, criterion):
             outputs, _ = model(inputs)
         else:
             outputs = model(inputs)
+
         loss = criterion(outputs, labels)
         train_running_loss += loss.item()
         # print(outputs)
         _, preds = torch.max(outputs.data, 1)
         _, correct_labels = torch.max(labels, 1)
-        # print(preds, correct_labels)
         train_running_correct += (preds == correct_labels).sum().item()
         loss.backward()  # we are calculating the gradients and backpropagating
         optimizer.step()

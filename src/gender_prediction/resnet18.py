@@ -49,10 +49,10 @@ for param in resnet18.parameters():
 num_ftrs = resnet18.fc.in_features
 resnet18.fc = nn.Linear(num_ftrs, 2).to(device)
 
-criterion = nn.BCEWithLogitsLoss(reduction='sum')
+criterion = nn.BCEWithLogitsLoss(reduction='mean')
 optimizer = optim.Adam(resnet18.parameters(), lr=5e-4)
 
-epochs = 30
+epochs = 50
 train_loss, train_accuracy = [], []
 val_loss, val_accuracy = [], []
 start = time.time()

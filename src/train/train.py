@@ -12,7 +12,6 @@ def train(model, train_dataloader, optimizer, criterion):
             outputs, _ = model(inputs)
         else:
             outputs = model(inputs)
-        # print(outputs, labels)
         loss = criterion(outputs, labels)
 
         train_running_loss += loss.item()
